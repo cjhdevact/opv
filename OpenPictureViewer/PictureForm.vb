@@ -15,17 +15,19 @@ Public Class PictureForm
     Private Sub PoctureForm_Load(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles MyBase.Load
         fopm = Nothing
         fdnm = Nothing
+        'For win11
         If Environment.GetEnvironmentVariable("ProgramFiles(x86)") = "" Then
             'x86
             If System.IO.File.Exists("C:\Windows\System32\mspaint.exe") = False Then
-                openexem.Visible = False
-                mspaintm.Visible = False
+                mspaintrb.Visible = False
+                mspaintrbl.Visible = False
+
             End If
         Else
             'x64
             If System.IO.File.Exists("C:\Windows\SysWOW64\mspaint.exe") = False Then
-                openexem.Visible = False
-                mspaintm.Visible = False
+                mspaintrb.Visible = False
+                mspaintrbl.Visible = False
             End If
         End If
         fsci = 0
@@ -118,7 +120,6 @@ Public Class PictureForm
             Me.FormBorderStyle = Windows.Forms.FormBorderStyle.None
             Me.WindowState = 0
             Me.WindowState = 2
-            fsm.Text = "窗口"
             PictureBox1.BackColor = Color.Black
             TableLayoutPanel1.Visible = False
             TableLayoutPanel2.Visible = False
@@ -127,70 +128,12 @@ Public Class PictureForm
             fsci = 0
             Me.FormBorderStyle = Windows.Forms.FormBorderStyle.Sizable
             Me.WindowState = formst
-            fsm.Text = "全屏"
             formst = Nothing
             PictureBox1.BackColor = Color.White
             TableLayoutPanel1.Visible = True
             TableLayoutPanel2.Visible = True
             PictureBox1.ContextMenuStrip = Nothing
         End If
-    End Sub
-
-    Private Sub exitm_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles exitm.Click
-        End
-    End Sub
-
-    Private Sub infom_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles infom.Click
-        infocmd_Click(sender, e)
-    End Sub
-
-    Private Sub mspaintm_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles mspaintm.Click
-        Shell("mspaint.exe " & Chr(34) & openimg & Chr(34), AppWinStyle.NormalFocus)
-    End Sub
-
-    Private Sub aboutm_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles aboutm.Click
-        aboutform.ShowDialog()
-    End Sub
-
-    Private Sub openm_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles openm.Click
-        ' Show the Open File dialog. If the user clicks OK, load the
-        ' picture that the user chose.
-        If OpenFileDialog1.ShowDialog() = DialogResult.OK Then
-            ' the PictureBox's SizeMode property to "Zoom".
-            PictureBox1.SizeMode = PictureBoxSizeMode.Zoom
-            PictureBox1.Image = Nothing
-            openimg = OpenFileDialog1.FileName
-            fopm = Me.openimg
-            fdnm = Me.OpenFileDialog1.FileName
-            Dim imgminfo As New System.IO.FileInfo(Me.openimg)
-            Me.Text = imgminfo.Name & " - Open Picture Viewer"
-            Try
-                PictureBox1.Load(OpenFileDialog1.FileName)
-            Catch ex As Exception
-                openimg = OpenFileDialog1.FileName
-                OpenFileDialog1.FileName = ""
-
-                PictureBox1.SizeMode = PictureBoxSizeMode.CenterImage
-                If imgminfo.Length = 0 Then
-                    PictureBox1.Image = (My.Resources.noimg)
-                ElseIf imgminfo.Length <> 0 Then
-                    PictureBox1.Image = (My.Resources.wrimg)
-                Else
-                    PictureBox1.Image = (My.Resources.otimg)
-                End If
-                Me.Text = "Open Picture Viewer"
-            End Try
-            fopm = Nothing
-            fdnm = Nothing
-        End If
-    End Sub
-
-    Private Sub prghelpm_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles prghelpm.Click
-        MsgBox("该版本没有帮助！", MsgBoxStyle.Critical, "错误")
-    End Sub
-
-    Private Sub fsm_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles fsm.Click
-        fsccmd_Click(sender, e)
     End Sub
 
     Private Sub closecm_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles closecm.Click
@@ -402,10 +345,9 @@ Public Class PictureForm
                         Me.FormBorderStyle = Windows.Forms.FormBorderStyle.None
                         Me.WindowState = 0
                         Me.WindowState = 2
-                        fsm.Text = "窗口"
                         PictureBox1.BackColor = Color.Black
-                        TableLayoutPanel1.Visible = False
-                        TableLayoutPanel2.Visible = False
+                    TableLayoutPanel1.Visible = False
+                    TableLayoutPanel2.Visible = False
                         PictureBox1.ContextMenuStrip = picturefullcm
                         Exit Select
                 Case m_InfoID
@@ -517,14 +459,9 @@ Public Class PictureForm
         End Try
     End Sub
 
-    Private Sub printviewm_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles printviewm.Click
-        PrintPreviewDialog1.Document = PrintDocument1
-        PrintPreviewDialog1.ShowIcon = False
-        PrintPreviewDialog1.Size = New Size(500, 450)
-        PrintPreviewDialog1.AutoSizeMode = AutoSizeMode.GrowOnly
-        PrintPreviewDialog1.ShowDialog()
-    End Sub
 
+    '-------------------------------------------------------------
+    '处理Tab里的菜单事件
 
     Private Sub PrintDocument1_PrintPage(ByVal sender As Object, ByVal e As Printing.PrintPageEventArgs) Handles PrintDocument1.PrintPage
         If OpenFileDialog1.FileName <> "" Then
@@ -533,10 +470,86 @@ Public Class PictureForm
         End If
     End Sub
 
-    Private Sub printm_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles printm.Click
+    Private Sub filerb_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles filerb.Click
+        ' Show the Open File dialog. If the user clicks OK, load the
+        ' picture that the user chose.
+        If OpenFileDialog1.ShowDialog() = DialogResult.OK Then
+            ' the PictureBox's SizeMode property to "Zoom".
+            PictureBox1.SizeMode = PictureBoxSizeMode.Zoom
+            PictureBox1.Image = Nothing
+            openimg = OpenFileDialog1.FileName
+            fopm = Me.openimg
+            fdnm = Me.OpenFileDialog1.FileName
+            Dim imgminfo As New System.IO.FileInfo(Me.openimg)
+            Me.Text = imgminfo.Name & " - Open Picture Viewer"
+            Try
+                PictureBox1.Load(OpenFileDialog1.FileName)
+            Catch ex As Exception
+                openimg = OpenFileDialog1.FileName
+                OpenFileDialog1.FileName = ""
+
+                PictureBox1.SizeMode = PictureBoxSizeMode.CenterImage
+                If imgminfo.Length = 0 Then
+                    PictureBox1.Image = (My.Resources.noimg)
+                ElseIf imgminfo.Length <> 0 Then
+                    PictureBox1.Image = (My.Resources.wrimg)
+                Else
+                    PictureBox1.Image = (My.Resources.otimg)
+                End If
+                Me.Text = "Open Picture Viewer"
+            End Try
+            fopm = Nothing
+            fdnm = Nothing
+        End If
+    End Sub
+
+    Private Sub printrb_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles printrb.Click
         PrintDialog1.Document = PrintDocument1
         If PrintDialog1.ShowDialog() = DialogResult.OK Then
             PrintDialog1.Document.Print()
         End If
+    End Sub
+
+    Private Sub printviewrb_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles printviewrb.Click
+        PrintPreviewDialog1.Document = PrintDocument1
+        PrintPreviewDialog1.ShowIcon = False
+        PrintPreviewDialog1.Size = New Size(500, 450)
+        PrintPreviewDialog1.AutoSizeMode = AutoSizeMode.GrowOnly
+        PrintPreviewDialog1.ShowDialog()
+    End Sub
+
+    Private Sub inforb_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles inforb.Click
+        infocmd_Click(sender, e)
+    End Sub
+
+    Private Sub exitrb_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles exitrb.Click
+        End
+    End Sub
+
+    Private Sub fsrb_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles fsrb.Click
+        fsccmd_Click(sender, e)
+    End Sub
+
+    Private Sub mspaintrb_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles mspaintrb.Click
+        Shell("mspaint.exe " & Chr(34) & openimg & Chr(34), AppWinStyle.NormalFocus)
+        'mspaint.exe "file.bmp"
+    End Sub
+
+    Private Sub prghlprb_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles prghlprb.Click
+        MsgBox("该版本没有帮助。", MsgBoxStyle.Exclamation, "提示")
+    End Sub
+
+    Private Sub aboutrb_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles aboutrb.Click
+        aboutform.ShowDialog()
+    End Sub
+
+
+    '-------------------------------------
+    Private Sub FullviewlinkToolStripMenuItem_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles FullviewlinkToolStripMenuItem.Click
+        fsccmd_Click(sender, e)
+    End Sub
+
+    Private Sub HelplinkToolStripMenuItem_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles HelplinkToolStripMenuItem.Click
+        prghlprb_Click(sender, e)
     End Sub
 End Class

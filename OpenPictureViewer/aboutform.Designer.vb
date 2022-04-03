@@ -30,13 +30,13 @@ Partial Class aboutform
         Me.Label4 = New System.Windows.Forms.Label()
         Me.TabControl1 = New System.Windows.Forms.TabControl()
         Me.TabPage1 = New System.Windows.Forms.TabPage()
-        Me.TabPage2 = New System.Windows.Forms.TabPage()
-        Me.TabPage3 = New System.Windows.Forms.TabPage()
-        Me.TextBox1 = New System.Windows.Forms.TextBox()
-        Me.TextBox2 = New System.Windows.Forms.TextBox()
-        Me.Label1 = New System.Windows.Forms.Label()
-        Me.Label5 = New System.Windows.Forms.Label()
         Me.LinkLabel1 = New System.Windows.Forms.LinkLabel()
+        Me.Label5 = New System.Windows.Forms.Label()
+        Me.Label1 = New System.Windows.Forms.Label()
+        Me.TabPage2 = New System.Windows.Forms.TabPage()
+        Me.TextBox1 = New System.Windows.Forms.TextBox()
+        Me.TabPage3 = New System.Windows.Forms.TabPage()
+        Me.TextBox2 = New System.Windows.Forms.TextBox()
         CType(Me.PictureBox1, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.TabControl1.SuspendLayout()
         Me.TabPage1.SuspendLayout()
@@ -96,7 +96,7 @@ Partial Class aboutform
         Me.Label4.Name = "Label4"
         Me.Label4.Size = New System.Drawing.Size(104, 17)
         Me.Label4.TabIndex = 5
-        Me.Label4.Text = "版本: 1.0.0.22031"
+        Me.Label4.Text = "版本: 1.0.1.22041"
         '
         'TabControl1
         '
@@ -127,6 +127,38 @@ Partial Class aboutform
         Me.TabPage1.Text = "版本"
         Me.TabPage1.UseVisualStyleBackColor = True
         '
+        'LinkLabel1
+        '
+        Me.LinkLabel1.AutoSize = True
+        Me.LinkLabel1.Location = New System.Drawing.Point(6, 211)
+        Me.LinkLabel1.Name = "LinkLabel1"
+        Me.LinkLabel1.Size = New System.Drawing.Size(201, 17)
+        Me.LinkLabel1.TabIndex = 8
+        Me.LinkLabel1.TabStop = True
+        Me.LinkLabel1.Text = "https://github.com/cjhdevact/opv"
+        '
+        'Label5
+        '
+        Me.Label5.AutoSize = True
+        Me.Label5.Font = New System.Drawing.Font("微软雅黑", 9.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(134, Byte))
+        Me.Label5.ForeColor = System.Drawing.Color.Black
+        Me.Label5.Location = New System.Drawing.Point(6, 194)
+        Me.Label5.Name = "Label5"
+        Me.Label5.Size = New System.Drawing.Size(230, 17)
+        Me.Label5.TabIndex = 7
+        Me.Label5.Text = "欢迎访问 Open Picture Viewer 的主页：" & Global.Microsoft.VisualBasic.ChrW(13) & Global.Microsoft.VisualBasic.ChrW(10)
+        '
+        'Label1
+        '
+        Me.Label1.AutoSize = True
+        Me.Label1.Font = New System.Drawing.Font("微软雅黑", 9.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(134, Byte))
+        Me.Label1.ForeColor = System.Drawing.Color.Black
+        Me.Label1.Location = New System.Drawing.Point(6, 146)
+        Me.Label1.Name = "Label1"
+        Me.Label1.Size = New System.Drawing.Size(346, 34)
+        Me.Label1.TabIndex = 6
+        Me.Label1.Text = "Open Picture Viewer 根据 GNU General Public License v3.0" & Global.Microsoft.VisualBasic.ChrW(13) & Global.Microsoft.VisualBasic.ChrW(10) & "协议发布。"
+        '
         'TabPage2
         '
         Me.TabPage2.Controls.Add(Me.TextBox1)
@@ -137,17 +169,6 @@ Partial Class aboutform
         Me.TabPage2.TabIndex = 1
         Me.TabPage2.Text = "GNU 协议"
         Me.TabPage2.UseVisualStyleBackColor = True
-        '
-        'TabPage3
-        '
-        Me.TabPage3.Controls.Add(Me.TextBox2)
-        Me.TabPage3.Location = New System.Drawing.Point(4, 26)
-        Me.TabPage3.Name = "TabPage3"
-        Me.TabPage3.Padding = New System.Windows.Forms.Padding(3)
-        Me.TabPage3.Size = New System.Drawing.Size(371, 328)
-        Me.TabPage3.TabIndex = 2
-        Me.TabPage3.Text = "更新日志"
-        Me.TabPage3.UseVisualStyleBackColor = True
         '
         'TextBox1
         '
@@ -164,6 +185,17 @@ Partial Class aboutform
         Me.TextBox1.Text = resources.GetString("TextBox1.Text")
         Me.TextBox1.WordWrap = False
         '
+        'TabPage3
+        '
+        Me.TabPage3.Controls.Add(Me.TextBox2)
+        Me.TabPage3.Location = New System.Drawing.Point(4, 26)
+        Me.TabPage3.Name = "TabPage3"
+        Me.TabPage3.Padding = New System.Windows.Forms.Padding(3)
+        Me.TabPage3.Size = New System.Drawing.Size(371, 328)
+        Me.TabPage3.TabIndex = 2
+        Me.TabPage3.Text = "更新日志"
+        Me.TabPage3.UseVisualStyleBackColor = True
+        '
         'TextBox2
         '
         Me.TextBox2.Dock = System.Windows.Forms.DockStyle.Fill
@@ -176,39 +208,8 @@ Partial Class aboutform
         Me.TextBox2.ScrollBars = System.Windows.Forms.ScrollBars.Vertical
         Me.TextBox2.Size = New System.Drawing.Size(365, 322)
         Me.TextBox2.TabIndex = 0
-        Me.TextBox2.Text = "Open Picture Viewer 1.0.0.22031 2022-03-20" & Global.Microsoft.VisualBasic.ChrW(13) & Global.Microsoft.VisualBasic.ChrW(10) & "1.添加文件属性查看功能。" & Global.Microsoft.VisualBasic.ChrW(13) & Global.Microsoft.VisualBasic.ChrW(10) & "2.添加打印图片功能。"
-        '
-        'Label1
-        '
-        Me.Label1.AutoSize = True
-        Me.Label1.Font = New System.Drawing.Font("微软雅黑", 9.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(134, Byte))
-        Me.Label1.ForeColor = System.Drawing.Color.Black
-        Me.Label1.Location = New System.Drawing.Point(6, 146)
-        Me.Label1.Name = "Label1"
-        Me.Label1.Size = New System.Drawing.Size(346, 34)
-        Me.Label1.TabIndex = 6
-        Me.Label1.Text = "Open Picture Viewer 根据 GNU General Public License v3.0" & Global.Microsoft.VisualBasic.ChrW(13) & Global.Microsoft.VisualBasic.ChrW(10) & "协议发布。"
-        '
-        'Label5
-        '
-        Me.Label5.AutoSize = True
-        Me.Label5.Font = New System.Drawing.Font("微软雅黑", 9.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(134, Byte))
-        Me.Label5.ForeColor = System.Drawing.Color.Black
-        Me.Label5.Location = New System.Drawing.Point(6, 194)
-        Me.Label5.Name = "Label5"
-        Me.Label5.Size = New System.Drawing.Size(230, 17)
-        Me.Label5.TabIndex = 7
-        Me.Label5.Text = "欢迎访问 Open Picture Viewer 的主页：" & Global.Microsoft.VisualBasic.ChrW(13) & Global.Microsoft.VisualBasic.ChrW(10)
-        '
-        'LinkLabel1
-        '
-        Me.LinkLabel1.AutoSize = True
-        Me.LinkLabel1.Location = New System.Drawing.Point(6, 211)
-        Me.LinkLabel1.Name = "LinkLabel1"
-        Me.LinkLabel1.Size = New System.Drawing.Size(201, 17)
-        Me.LinkLabel1.TabIndex = 8
-        Me.LinkLabel1.TabStop = True
-        Me.LinkLabel1.Text = "https://github.com/cjhdevact/opv"
+        Me.TextBox2.Text = "Open Picture Viewer 1.0.0.22031 2022-03-20" & Global.Microsoft.VisualBasic.ChrW(13) & Global.Microsoft.VisualBasic.ChrW(10) & "1.添加文件属性查看功能。" & Global.Microsoft.VisualBasic.ChrW(13) & Global.Microsoft.VisualBasic.ChrW(10) & "2.添加打印图片功能。" & Global.Microsoft.VisualBasic.ChrW(13) & Global.Microsoft.VisualBasic.ChrW(10) & Global.Microsoft.VisualBasic.ChrW(13) & Global.Microsoft.VisualBasic.ChrW(10) & "Open Pi" & _
+            "cture Viewer 1.0.1.22041 2022-04-03" & Global.Microsoft.VisualBasic.ChrW(13) & Global.Microsoft.VisualBasic.ChrW(10) & "1.更改菜单栏为Ribbon功能区。"
         '
         'aboutform
         '
