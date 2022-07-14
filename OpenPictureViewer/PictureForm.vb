@@ -1,10 +1,20 @@
-﻿Imports System.IO
+﻿'****************************************************************
+'PROJECT: Open Picture Viewer
+'FILE: PictureForm.vb
+'PURPOSE: Picture Viewer Main Module.
+'AUTHOR: CJH
+'****************************************************************
+
+Imports System.IO
 Imports System
 Imports System.Windows.Forms
 Imports System.Diagnostics
 Imports System.Runtime.InteropServices
 
 Public Class PictureForm
+    Public cmdfile As String
+    Public cmdfilew As String
+
     Public fopm As String
     Public fdnm As String
 
@@ -37,7 +47,76 @@ Public Class PictureForm
         OpenFileDialog1.Filter = "所有支持的文件 (*.png;*.jpg;*.jpeg;*.jpe;*.jfif;*.bmp;*.dib;*.gif;*.tif;*.tiff;*.ico)|*.png;*.jpg;*.jpeg;*.jpe;*.jfif;*.bmp;*.dib;*.gif;*.tif;*.tiff;*.ico|" _
                                & "PNG 图像 (*.png)|*.png|JPEG 文件 (*.jpg;*.jpeg;*.jpe;*.jfif)|*.jpg;*.jpeg;*.jpe;*.jfif|" _
                                & "BMP 文件 (*.bmp;*.dib)|*.bmp;*.dib|GIF 图像 (*.gif)|*.gif|TIFF 文件 (*.tif;*.tiff)|*.tif;*.tiff|图标文件(*.ico)|*.ico|所有文件 (*.*)|*.*"
+
+        If Command() <> "" Then
+            cmdfile = Command()
+        End If
+
+        If cmdfile <> "" Then
+            Call cmdpic()
+        End If
     End Sub
+
+    Sub cmdpic()
+        '命令行加载图片
+        cmdfilew = cmdfile
+
+        If cmdfile = "/?" Then
+            MsgBox("Open Picture Viewer 命令参数帮助" & vbCrLf _
+                 & "使用方法：" & vbCrLf _
+                 & "opv [命令参数]" & vbCrLf & vbCrLf _
+                 & "命令参数为以下其中一项：" & vbCrLf _
+                 & "/?         获取本帮助信息。" & vbCrLf _
+                 & "%1         图片文件的路径。" _
+                 , MsgBoxStyle.Information, "帮助")
+        Else
+            ' the PictureBox's SizeMode property to "Zoom".
+            PictureBox1.SizeMode = PictureBoxSizeMode.Zoom
+            PictureBox1.Image = Nothing
+            openimg = cmdfilew
+            fopm = Me.openimg
+            fdnm = cmdfile
+
+            Dim spstr As Boolean
+            spstr = InStr(cmdfile, " ")
+            'If spstr = False Then
+            'Dim ttstr As Boolean
+            'ttstr = InStr(cmdfile, Chr(34))
+            'If ttstr = True Then
+            cmdfile = cmdfile.Replace("""", "").Trim()
+            'End If
+            If System.IO.File.Exists(cmdfile) = True Then
+                Try
+                    PictureBox1.Load(cmdfile)
+                    If PictureBox1.Image.Size.Height < 64 Then
+                        PictureBox1.SizeMode = PictureBoxSizeMode.CenterImage
+                    ElseIf PictureBox1.Image.Size.Width < 64 Then
+                        PictureBox1.SizeMode = PictureBoxSizeMode.CenterImage
+                    End If
+                    Me.Text = PictureBox1.ImageLocation & " - Fly Picture Viewer"
+                    OpenFileDialog1.FileName = cmdfile
+                    openimg = cmdfile
+                    cmdfile = ""
+                    cmdfilew = ""
+                Catch ex As Exception
+                    PictureBox1.Image = (My.Resources.otimg)
+                    Me.Text = "Fly Picture Viewer"
+                    openimg = ""
+                    cmdfile = ""
+                End Try
+            Else
+                If cmdfile <> "" Then
+                    MsgBox("尝试打开文件 " & Chr(34) & " " & cmdfile & " " & Chr(34) & " 出错。", MsgBoxStyle.Critical, "错误")
+                End If
+                openimg = ""
+                cmdfile = ""
+            End If
+        End If
+        fopm = Nothing
+        fdnm = Nothing
+        cmdfile = ""
+    End Sub
+
 
     Private Sub infocmd_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles infocmd.Click
         If openimg <> "" Then
@@ -340,91 +419,91 @@ Public Class PictureForm
                     End If
                     Exit Select
                 Case m_FsID
-                        fsci = 1
-                        formst = Me.WindowState
-                        Me.FormBorderStyle = Windows.Forms.FormBorderStyle.None
-                        Me.WindowState = 0
-                        Me.WindowState = 2
-                        PictureBox1.BackColor = Color.Black
+                    fsci = 1
+                    formst = Me.WindowState
+                    Me.FormBorderStyle = Windows.Forms.FormBorderStyle.None
+                    Me.WindowState = 0
+                    Me.WindowState = 2
+                    PictureBox1.BackColor = Color.Black
                     TableLayoutPanel1.Visible = False
                     TableLayoutPanel2.Visible = False
-                        PictureBox1.ContextMenuStrip = picturefullcm
-                        Exit Select
+                    PictureBox1.ContextMenuStrip = picturefullcm
+                    Exit Select
                 Case m_InfoID
-                        If True Then
-                            ' “属性”菜单项 
-                            If openimg <> "" Then
-                                Dim imginfoa As New System.IO.FileInfo(openimg)
-                                infoform.Label7.Visible = True
-                                infoform.Text = imginfoa.Name & " 属性"
+                    If True Then
+                        ' “属性”菜单项 
+                        If openimg <> "" Then
+                            Dim imginfoa As New System.IO.FileInfo(openimg)
+                            infoform.Label7.Visible = True
+                            infoform.Text = imginfoa.Name & " 属性"
 
-                                infoform.Label2.Text = imginfoa.Name
+                            infoform.Label2.Text = imginfoa.Name
 
-                                If 1024 > imginfoa.Length Then
-                                    '小于1024字节，字节为单位
-                                    infoform.Label3.Text = "大小: " & imginfoa.Length & " 字节"
-                                ElseIf 1024 > imginfoa.Length / 1024 Then
-                                    '小于1024KB，KB为单位
-                                    infoform.Label3.Text = "大小: " & imginfoa.Length / 1024 & " KB"
-                                ElseIf 1024 > imginfoa.Length / 1024 / 1024 Then
-                                    '小于1024MB，MB为单位
-                                    infoform.Label3.Text = "大小: " & imginfoa.Length / 1024 / 1024 & " MB"
-                                Else
-                                    infoform.Label3.Text = "大小: " & imginfoa.Length / 1024 / 1024 / 1024 & " GB"
-                                End If
-
-                                infoform.Label4.Text = "创建时间: " & imginfoa.CreationTime
-                                infoform.Label5.Text = "修改时间: " & imginfoa.LastWriteTime
-                                If imginfoa.Extension.ToLower = ".png" Then
-                                    infoform.Label6.Text = "类型: PNG 图像"
-                                ElseIf imginfoa.Extension.ToLower = ".jpg" Then
-                                    infoform.Label6.Text = "类型: JPEG 图像"
-                                ElseIf imginfoa.Extension.ToLower = ".jpeg" Then
-                                    infoform.Label6.Text = "类型: JPEG 图像"
-                                ElseIf imginfoa.Extension.ToLower = ".jpe" Then
-                                    infoform.Label6.Text = "类型: JPEG 图像"
-                                ElseIf imginfoa.Extension.ToLower = ".jfif" Then
-                                    infoform.Label6.Text = "类型: JPEG 图像"
-                                ElseIf imginfoa.Extension.ToLower = ".bmp" Then
-                                    infoform.Label6.Text = "类型: BMP 文件"
-                                ElseIf imginfoa.Extension.ToLower = ".dib" Then
-                                    infoform.Label6.Text = "类型: BMP 文件"
-                                ElseIf imginfoa.Extension.ToLower = ".gif" Then
-                                    infoform.Label6.Text = "类型: GIF 图像"
-                                ElseIf imginfoa.Extension.ToLower = ".tif" Then
-                                    infoform.Label6.Text = "类型: TIFF 文件"
-                                ElseIf imginfoa.Extension.ToLower = ".tiff" Then
-                                    infoform.Label6.Text = "类型: TIFF 文件"
-                                ElseIf imginfoa.Extension.ToLower = ".ico" Then
-                                    infoform.Label6.Text = "类型: 图标文件"
-                                Else
-                                    infoform.Label6.Text = "类型: " & imginfoa.Extension.ToUpper
-                                End If
-
-                                Try
-                                    infoform.Label7.Text = "大小: " & PictureBox1.Image.Width & " × " & PictureBox1.Image.Height
-                                Catch ex As Exception
-                                    infoform.Label7.Visible = False
-                                End Try
-
-                                Try
-                                    infoform.PictureBox2.Load(openimg)
-                                Catch ex As Exception
-                                    infoform.Label7.Visible = False
-                                    infoform.PictureBox2.Image = Nothing
-                                End Try
-
-                                infoform.ShowDialog()
+                            If 1024 > imginfoa.Length Then
+                                '小于1024字节，字节为单位
+                                infoform.Label3.Text = "大小: " & imginfoa.Length & " 字节"
+                            ElseIf 1024 > imginfoa.Length / 1024 Then
+                                '小于1024KB，KB为单位
+                                infoform.Label3.Text = "大小: " & imginfoa.Length / 1024 & " KB"
+                            ElseIf 1024 > imginfoa.Length / 1024 / 1024 Then
+                                '小于1024MB，MB为单位
+                                infoform.Label3.Text = "大小: " & imginfoa.Length / 1024 / 1024 & " MB"
+                            Else
+                                infoform.Label3.Text = "大小: " & imginfoa.Length / 1024 / 1024 / 1024 & " GB"
                             End If
+
+                            infoform.Label4.Text = "创建时间: " & imginfoa.CreationTime
+                            infoform.Label5.Text = "修改时间: " & imginfoa.LastWriteTime
+                            If imginfoa.Extension.ToLower = ".png" Then
+                                infoform.Label6.Text = "类型: PNG 图像"
+                            ElseIf imginfoa.Extension.ToLower = ".jpg" Then
+                                infoform.Label6.Text = "类型: JPEG 图像"
+                            ElseIf imginfoa.Extension.ToLower = ".jpeg" Then
+                                infoform.Label6.Text = "类型: JPEG 图像"
+                            ElseIf imginfoa.Extension.ToLower = ".jpe" Then
+                                infoform.Label6.Text = "类型: JPEG 图像"
+                            ElseIf imginfoa.Extension.ToLower = ".jfif" Then
+                                infoform.Label6.Text = "类型: JPEG 图像"
+                            ElseIf imginfoa.Extension.ToLower = ".bmp" Then
+                                infoform.Label6.Text = "类型: BMP 文件"
+                            ElseIf imginfoa.Extension.ToLower = ".dib" Then
+                                infoform.Label6.Text = "类型: BMP 文件"
+                            ElseIf imginfoa.Extension.ToLower = ".gif" Then
+                                infoform.Label6.Text = "类型: GIF 图像"
+                            ElseIf imginfoa.Extension.ToLower = ".tif" Then
+                                infoform.Label6.Text = "类型: TIFF 文件"
+                            ElseIf imginfoa.Extension.ToLower = ".tiff" Then
+                                infoform.Label6.Text = "类型: TIFF 文件"
+                            ElseIf imginfoa.Extension.ToLower = ".ico" Then
+                                infoform.Label6.Text = "类型: 图标文件"
+                            Else
+                                infoform.Label6.Text = "类型: " & imginfoa.Extension.ToUpper
+                            End If
+
+                            Try
+                                infoform.Label7.Text = "大小: " & PictureBox1.Image.Width & " × " & PictureBox1.Image.Height
+                            Catch ex As Exception
+                                infoform.Label7.Visible = False
+                            End Try
+
+                            Try
+                                infoform.PictureBox2.Load(openimg)
+                            Catch ex As Exception
+                                infoform.Label7.Visible = False
+                                infoform.PictureBox2.Image = Nothing
+                            End Try
+
+                            infoform.ShowDialog()
                         End If
-                        Exit Select
+                    End If
+                    Exit Select
                 Case m_AboutID
-                        If True Then
-                            ' “关于”菜单项 
-                            aboutform.ShowDialog()
-                        End If
-                        Exit Select
-                        ' 这里可以针对另外的菜单项设计处理过程 
+                    If True Then
+                        ' “关于”菜单项 
+                        aboutform.ShowDialog()
+                    End If
+                    Exit Select
+                    ' 这里可以针对另外的菜单项设计处理过程 
             End Select
         End If
         ' 调用基类函数 

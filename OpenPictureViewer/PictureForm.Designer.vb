@@ -642,8 +642,8 @@ Partial Class PictureForm
         Me.ClientSize = New System.Drawing.Size(618, 459)
         Me.Controls.Add(Me.PictureBox1)
         Me.Controls.Add(Me.TableLayoutPanel2)
-        Me.Controls.Add(Me.fastkeysub)
         Me.Controls.Add(Me.TableLayoutPanel1)
+        Me.Controls.Add(Me.fastkeysub)
         Me.ForeColor = System.Drawing.Color.Black
         Me.Icon = CType(resources.GetObject("$this.Icon"), System.Drawing.Icon)
         Me.MainMenuStrip = Me.fastkeysub

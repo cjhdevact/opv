@@ -1,4 +1,11 @@
-﻿Public Class aboutform
+﻿'****************************************************************
+'PROJECT: Open Picture Viewer
+'FILE: aboutform.vb
+'PURPOSE: About Form Module.
+'AUTHOR: CJH
+'****************************************************************
+
+Public Class aboutform
 
     Private Sub Button1_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles Button1.Click
         Me.Close()

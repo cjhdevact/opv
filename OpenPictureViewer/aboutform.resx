@@ -121,7 +121,7 @@
   <data name="PictureBox1.Image" type="System.Drawing.Bitmap, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
     <value>
         iVBORw0KGgoAAAANSUhEUgAAAEAAAABACAYAAACqaXHeAAAAIGNIUk0AAHolAACAgwAA+f8AAIDpAAB1
-        MAAA6mAAADqYAAAXb5JfxUYAAAAJcEhZcwAADsQAAA7EAZUrDhsAAAF3SURBVHhe7ZABbsQgDATz/2f0
+        MAAA6mAAADqYAAAXb5JfxUYAAAAJcEhZcwAADsIAAA7CARUoSoAAAAF3SURBVHhe7ZABbsQgDATz/2f0
         df1FWk5a1bUGQuiFJtgjjQRrUMJu+76HFsNIYhhJDCOJYSQxjCSGkcQwkhhGksPveDX9GyWH7vIK+jdK
         Dn8uPZ4sIAvIAt5bwPbxeVuJLCALyAKygCwgC3i95dcbJYdZQBaQBWQB/1jA6HeIxxVgoXlLYnoBFpof
         aaF5S2JqAQSda6k7ws9bEtMKaEHnSeHXvRKPLYD2RxLTCigSdI4UvTlJTC2gaKF5TdGbk8T0Aoq956zi
@@ -806,6 +806,18 @@ may consider it more useful to permit linking proprietary applications with
 the library.  If this is what you want to do, use the GNU Lesser General
 Public License instead of this License.  But first, please read
 &lt;https://www.gnu.org/licenses/why-not-lgpl.html&gt;.</value>
+  </data>
+  <data name="TextBox2.Text" xml:space="preserve">
+    <value>Open Picture Viewer 1.0.2.22071 2022-0714 
+1.添加命令打开图片功能。
+2.优化界面。
+
+Open Picture Viewer 1.0.1.22041 2022-04-03
+1.更改菜单栏为Ribbon功能区。
+
+Open Picture Viewer 1.0.0.22031 2022-03-20
+1.添加文件属性查看功能。
+2.添加打印图片功能。</value>
   </data>
   <data name="$this.Icon" type="System.Drawing.Icon, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
     <value>

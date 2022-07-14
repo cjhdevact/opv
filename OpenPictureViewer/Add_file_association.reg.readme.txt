@@ -1,0 +1,15 @@
+请将注册表里的程序路径更为你的程序所在位置。
+[HKEY_CLASSES_ROOT\opv.png\DefaultIcon]
+@="(你的路径（\改为\\））,0"
+
+[HKEY_CLASSES_ROOT\opv.png\shell\open\command]
+@="\"(你的路径（\改为\\））" \"%1\""
+
+...
+
+
+[HKEY_CLASSES_ROOT\opv.ico\DefaultIcon]
+@="%1"
+
+[HKEY_CLASSES_ROOT\opv.ico\shell\open\command]
+@="\"(你的路径（\改为\\））" \"%1\""
